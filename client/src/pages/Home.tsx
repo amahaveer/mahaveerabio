@@ -416,10 +416,22 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {products.map((p) => (
-                <div key={p.name} className="bg-white border border-[#e8e4dd] p-5 rounded-sm hover:border-[#d4820a] transition-colors group">
+                <div key={p.name} className="bg-white border border-[#e8e4dd] p-5 rounded-sm hover:border-[#d4820a] transition-colors group flex flex-col">
                   <div className="text-2xl mb-3">{p.icon}</div>
-                  <h4 className="font-bold text-[#1a2744] mb-2 text-sm" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>{p.name}</h4>
-                  <p className="text-xs text-[#4a5568] leading-relaxed" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{p.description}</p>
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h4 className="font-bold text-[#1a2744] text-sm leading-snug" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>{p.name}</h4>
+                    {(p as any).url && (
+                      <a href={(p as any).url} target="_blank" rel="noopener noreferrer" className="shrink-0 text-[#9aa5b4] hover:text-[#d4820a] transition-colors mt-0.5">
+                        <ExternalLink size={13} />
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-xs text-[#4a5568] leading-relaxed flex-1" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{p.description}</p>
+                  {(p as any).url && (
+                    <a href={(p as any).url} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#d4820a] hover:underline" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+                      Visit <ExternalLink size={10} />
+                    </a>
+                  )}
                 </div>
               ))}
             </div>

@@ -18,7 +18,7 @@ A trusted advisor to senior technologists and C-Level executives, delivering lar
 };
 
 export const stats = [
-  { label: "Years Experience", value: 16, suffix: "+" },
+  { label: "Years Experience", value: 18, suffix: "+" },
   { label: "Enterprise Clients", value: 17, suffix: "+" },
   { label: "LinkedIn Followers", value: 3623, suffix: "" },
   { label: "Certifications", value: 12, suffix: "+" },
@@ -412,6 +412,30 @@ export const education = [
 ];
 
 export const products = [
+  {
+    name: "MetafyAI – AEO/GEO",
+    description: "AI-powered Answer Engine Optimization and Generative Engine Optimization platform — helping brands get discovered and ranked inside AI-generated answers and LLM-driven search experiences.",
+    icon: "🤖",
+    url: "https://app.metafyai.com/",
+  },
+  {
+    name: "EchoX – AI Recommendations",
+    description: "Intelligent product recommendation engine that learns from behavioral signals to deliver hyper-personalized commerce experiences and drive revenue uplift.",
+    icon: "📡",
+    url: "https://echorecommend.com/",
+  },
+  {
+    name: "StudioX – Ship Storefronts in Minutes, Not Months",
+    description: "AI-accelerated storefront builder enabling brands to design, configure, and launch composable commerce storefronts at unprecedented speed without compromising quality.",
+    icon: "🚀",
+    url: "",
+  },
+  {
+    name: "Customer Service Accelerator",
+    description: "Unified customer service interface with 360° customer profile view, cart/order management, and ticketing — available on the commercetools Marketplace.",
+    icon: "🎧",
+    url: "https://marketplace.commercetools.com/accelerators/customer-service-accelerator",
+  },
   {
     name: "AI-Powered Natural Language Search",
     description: "Semantic search engine leveraging AI/ML for intelligent product discovery across commerce platforms",
