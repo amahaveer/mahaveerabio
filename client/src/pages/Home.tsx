@@ -6,7 +6,7 @@
  * Layout: Sticky left sidebar + wide magazine-style main content
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FormEvent } from "react";
 import { Link } from "wouter";
 import {
   profile,
@@ -102,6 +102,158 @@ function Section({ id, children, className = "" }: { id: string; children: React
     </section>
   );
 }
+
+// ─── Contact Form Component (mailto) ─────────────────────────────────────────
+// Sends email to mahaveergeni@gmail.com via the user's default email client.
+// Subject is fixed as: "Enquiry - Profile Form from Site"
+
+function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [form, setForm] = useState({ name: "", email: "", enquiry: "General Enquiry", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const e: Record<string, string> = {};
+    if (!form.name.trim()) e.name = "Name is required";
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Valid email is required";
+    if (!form.message.trim() || form.message.length < 20) e.message = "Message must be at least 20 characters";
+    return e;
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setErrors({});
+    const subject = encodeURIComponent("Enquiry - Profile Form from Site");
+    const body = encodeURIComponent(
+      `Enquiry Type: ${form.enquiry}\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n\n` +
+      `Message:\n${form.message}`
+    );
+    window.location.href = `mailto:mahaveergeni@gmail.com?subject=${subject}&body=${body}`;
+    setStatus("success");
+    setForm({ name: "", email: "", enquiry: "General Enquiry", message: "" });
+  };
+
+  const inputClass = "w-full px-4 py-3 text-sm rounded-sm outline-none transition-all";
+  const inputStyle = (field: string) => ({
+    backgroundColor: "#f8f6f1",
+    border: `1px solid ${errors[field] ? "#e53e3e" : "#ddd9d0"}`,
+    color: "#1a2744",
+    fontFamily: "'Source Sans 3', sans-serif",
+  });
+
+  if (status === "success") {
+    return (
+      <div className="bg-white border border-[#e8e4dd] rounded-sm p-8 flex flex-col items-center justify-center text-center" style={{ minHeight: "400px" }}>
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: "rgba(212,130,10,0.1)" }}>
+          <Mail size={28} style={{ color: "#d4820a" }} />
+        </div>
+        <h3 className="text-xl font-bold mb-3" style={{ fontFamily: "'Playfair Display', serif", color: "#1a2744" }}>Message Sent!</h3>
+        <p className="text-sm text-[#6b7280] mb-6" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+          Thank you for reaching out. Mahaveer will get back to you within 24–48 hours.
+        </p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="text-sm font-semibold px-6 py-2.5 rounded-sm transition-all hover:opacity-90"
+          style={{ backgroundColor: "#1a2744", color: "#f8f6f1", fontFamily: "'Source Sans 3', sans-serif" }}
+        >
+          Send Another Message
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white border border-[#e8e4dd] rounded-sm p-8 flex flex-col gap-5"
+      noValidate
+    >
+      <div>
+        <p className="text-xs uppercase tracking-widest mb-5" style={{ color: "#d4820a", fontFamily: "'IBM Plex Mono', monospace" }}>Send a Message</p>
+      </div>
+
+      {/* Enquiry Type */}
+      <div>
+        <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "#4a5568", fontFamily: "'IBM Plex Mono', monospace" }}>Enquiry Type</label>
+        <select
+          value={form.enquiry}
+          onChange={e => setForm(f => ({ ...f, enquiry: e.target.value }))}
+          className={inputClass}
+          style={{ ...inputStyle(""), appearance: "none" }}
+        >
+          {["General Enquiry", "Consulting Engagement", "Technology Leadership Role", "Speaking / Advisory", "Partnership / Collaboration", "Other"].map(o => (
+            <option key={o} value={o}>{o}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Name + Email */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "#4a5568", fontFamily: "'IBM Plex Mono', monospace" }}>Full Name *</label>
+          <input
+            type="text"
+            placeholder="Your name"
+            value={form.name}
+            onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+            className={inputClass}
+            style={inputStyle("name")}
+          />
+          {errors.name && <p className="text-xs mt-1" style={{ color: "#e53e3e", fontFamily: "'Source Sans 3', sans-serif" }}>{errors.name}</p>}
+        </div>
+        <div>
+          <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "#4a5568", fontFamily: "'IBM Plex Mono', monospace" }}>Email Address *</label>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            value={form.email}
+            onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+            className={inputClass}
+            style={inputStyle("email")}
+          />
+          {errors.email && <p className="text-xs mt-1" style={{ color: "#e53e3e", fontFamily: "'Source Sans 3', sans-serif" }}>{errors.email}</p>}
+        </div>
+      </div>
+
+      {/* Subject — fixed, shown as info */}
+      <div className="px-4 py-3 rounded-sm text-xs" style={{ backgroundColor: "rgba(26,39,68,0.04)", border: "1px solid #e8e4dd", color: "#4a5568", fontFamily: "'IBM Plex Mono', monospace" }}>
+        Subject: <strong style={{ color: "#1a2744" }}>Enquiry - Profile Form from Site</strong>
+      </div>
+
+      {/* Message */}
+      <div>
+        <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "#4a5568", fontFamily: "'IBM Plex Mono', monospace" }}>Message *</label>
+        <textarea
+          rows={5}
+          placeholder="Tell me about your project, role, or enquiry..."
+          value={form.message}
+          onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+          className={inputClass}
+          style={{ ...inputStyle("message"), resize: "vertical" }}
+        />
+        {errors.message && <p className="text-xs mt-1" style={{ color: "#e53e3e", fontFamily: "'Source Sans 3', sans-serif" }}>{errors.message}</p>}
+      </div>
+
+      {/* Submit */}
+      <button
+        type="submit"
+        className="flex items-center justify-center gap-2 py-3 px-8 rounded-sm text-sm font-semibold transition-all hover:opacity-90"
+        style={{ backgroundColor: "#1a2744", color: "#f8f6f1", fontFamily: "'Source Sans 3', sans-serif" }}
+      >
+        <Mail size={15} /> Send Message
+      </button>
+
+      <p className="text-xs text-center" style={{ color: "#9ca3af", fontFamily: "'IBM Plex Mono', monospace" }}>
+        Opens your email client · Sends to mahaveergeni@gmail.com
+      </p>
+    </form>
+  );
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 const navItems = [
   { id: "about", label: "About", icon: <Users size={14} /> },
@@ -718,48 +870,55 @@ export default function Home() {
           {/* CONTACT */}
           <Section id="contact">
             <h2 className="section-heading mb-8">Contact</h2>
-            <div className="bg-[#1a2744] rounded-sm p-8 md:p-12">
-              <p className="text-white/60 text-sm mb-8 max-w-lg" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
-                Available for enterprise architecture consulting, technology leadership roles, and strategic advisory engagements.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <a href={`mailto:${profile.email}`} className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
-                  <div className="w-10 h-10 rounded-sm flex items-center justify-center" style={{ background: "rgba(212,130,10,0.2)" }}>
-                    <Mail size={18} className="text-[#d4820a]" />
-                  </div>
-                  <div>
-                    <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>EMAIL</div>
-                    <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.email}</div>
-                  </div>
-                </a>
-                <a href={`tel:${profile.phone}`} className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
-                  <div className="w-10 h-10 rounded-sm flex items-center justify-center" style={{ background: "rgba(212,130,10,0.2)" }}>
-                    <Phone size={18} className="text-[#d4820a]" />
-                  </div>
-                  <div>
-                    <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>PHONE</div>
-                    <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.phone}</div>
-                  </div>
-                </a>
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
-                  <div className="w-10 h-10 rounded-sm flex items-center justify-center" style={{ background: "rgba(212,130,10,0.2)" }}>
-                    <Linkedin size={18} className="text-[#d4820a]" />
-                  </div>
-                  <div>
-                    <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>LINKEDIN</div>
-                    <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>linkedin.com/in/mahaveer-amudhachandran</div>
-                  </div>
-                </a>
-                <div className="flex items-center gap-4 p-4 bg-white/5 rounded-sm">
-                  <div className="w-10 h-10 rounded-sm flex items-center justify-center" style={{ background: "rgba(212,130,10,0.2)" }}>
-                    <MapPin size={18} className="text-[#d4820a]" />
-                  </div>
-                  <div>
-                    <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>LOCATION</div>
-                    <div className="text-white text-sm font-semibold" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.location}</div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+              {/* Contact Info */}
+              <div className="bg-[#1a2744] rounded-sm p-8">
+                <p className="text-white/70 text-sm mb-8 leading-relaxed" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+                  Available for enterprise architecture consulting, technology leadership roles, and strategic advisory engagements. Reach out directly or use the form.
+                </p>
+                <div className="flex flex-col gap-4">
+                  <a href={`mailto:${profile.email}`} className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
+                    <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ background: "rgba(212,130,10,0.2)" }}>
+                      <Mail size={18} className="text-[#d4820a]" />
+                    </div>
+                    <div>
+                      <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>EMAIL</div>
+                      <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.email}</div>
+                    </div>
+                  </a>
+                  <a href={`tel:${profile.phone}`} className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
+                    <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ background: "rgba(212,130,10,0.2)" }}>
+                      <Phone size={18} className="text-[#d4820a]" />
+                    </div>
+                    <div>
+                      <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>PHONE</div>
+                      <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.phone}</div>
+                    </div>
+                  </a>
+                  <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 rounded-sm transition-colors group">
+                    <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ background: "rgba(212,130,10,0.2)" }}>
+                      <Linkedin size={18} className="text-[#d4820a]" />
+                    </div>
+                    <div>
+                      <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>LINKEDIN</div>
+                      <div className="text-white text-sm font-semibold group-hover:text-[#d4820a] transition-colors" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>linkedin.com/in/mahaveer-amudhachandran</div>
+                    </div>
+                  </a>
+                  <div className="flex items-center gap-4 p-4 bg-white/5 rounded-sm">
+                    <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0" style={{ background: "rgba(212,130,10,0.2)" }}>
+                      <MapPin size={18} className="text-[#d4820a]" />
+                    </div>
+                    <div>
+                      <div className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>LOCATION</div>
+                      <div className="text-white text-sm font-semibold" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{profile.location}</div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Contact Form */}
+              <ContactForm />
             </div>
           </Section>
 
