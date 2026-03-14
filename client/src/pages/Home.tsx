@@ -35,7 +35,6 @@ import {
   Menu,
   X,
   Brain,
-  BarChart3,
   Target,
 } from "lucide-react";
 
@@ -343,30 +342,6 @@ export default function Home() {
             <p className="text-[#4a5568] mb-8 text-sm" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
               As Director of Technology, responsibilities span seven key domains across the full project lifecycle — from strategy and architecture through engineering governance, AI innovation, and production stability.
             </p>
-
-            {/* Work Breakdown Visual */}
-            <div className="bg-[#1a2744] rounded-sm p-6 mb-8">
-              <div className="flex items-center gap-2 mb-5">
-                <BarChart3 size={16} className="text-[#d4820a]" />
-                <span className="text-white/60 text-xs uppercase tracking-widest" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>Weekly Time Allocation (40 hrs)</span>
-              </div>
-              <div className="space-y-3">
-                {coreCompetencies.map((c) => (
-                  <div key={c.area}>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-white/80 text-xs" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{c.area}</span>
-                      <span className="text-[#d4820a] text-xs font-semibold" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>{c.hoursPerWeek}h / {c.timePercent}%</span>
-                    </div>
-                    <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-1000"
-                        style={{ width: `${c.timePercent}%`, background: c.timePercent >= 20 ? '#d4820a' : c.timePercent >= 15 ? '#e8a040' : '#6b8cba' }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* Competency Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
