@@ -7,6 +7,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { Link } from "wouter";
 import {
   profile,
   stats,
@@ -36,6 +37,8 @@ import {
   X,
   Brain,
   Target,
+  BookOpen,
+  FolderOpen,
 } from "lucide-react";
 
 // Animated counter hook
@@ -182,12 +185,28 @@ export default function Home() {
                 {n.label}
               </button>
             ))}
+            <Link href="/blog">
+              <button
+                className="text-white/70 hover:text-white text-sm transition-colors"
+                style={{ fontFamily: "'Source Sans 3', sans-serif" }}
+              >
+                Blog
+              </button>
+            </Link>
+            <Link href="/case-studies">
+              <button
+                className="text-white/70 hover:text-white text-sm transition-colors"
+                style={{ fontFamily: "'Source Sans 3', sans-serif" }}
+              >
+                Case Studies
+              </button>
+            </Link>
             <a
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-sm text-sm font-semibold transition-all"
-              style={{ background: "#d4820a", color: "white", fontFamily: "'Source Sans 3', sans-serif" }}
+              className="flex items-center gap-2 text-sm font-semibold transition-all"
+              style={{ background: "#d4820a", color: "white", fontFamily: "'Source Sans 3', sans-serif", padding: "0.375rem 1rem", borderRadius: "2px" }}
             >
               <Linkedin size={14} /> LinkedIn
             </a>
@@ -206,6 +225,16 @@ export default function Home() {
                 {n.label}
               </button>
             ))}
+            <Link href="/blog">
+              <button className="text-white/80 hover:text-white text-left text-sm py-1 flex items-center gap-2">
+                <BookOpen size={14} /> Blog
+              </button>
+            </Link>
+            <Link href="/case-studies">
+              <button className="text-white/80 hover:text-white text-left text-sm py-1 flex items-center gap-2">
+                <FolderOpen size={14} /> Case Studies
+              </button>
+            </Link>
           </div>
         )}
 
@@ -274,7 +303,31 @@ export default function Home() {
               ))}
             </nav>
 
-            <div className="mt-8 p-4 bg-[#1a2744] rounded-sm">
+            {/* Blog & Case Studies sidebar links */}
+            <div className="mt-6 flex flex-col gap-2">
+              <Link href="/blog">
+                <button
+                  className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-left rounded-sm w-full transition-all text-[#4a5568] hover:text-[#1a2744] hover:bg-[#ede9e1]"
+                  style={{ fontFamily: "'Source Sans 3', sans-serif" }}
+                >
+                  <BookOpen size={14} className="text-[#9aa5b4]" />
+                  Blog
+                  <ExternalLink size={11} className="ml-auto text-[#9aa5b4]" />
+                </button>
+              </Link>
+              <Link href="/case-studies">
+                <button
+                  className="flex items-center gap-2.5 px-3 py-2.5 text-sm text-left rounded-sm w-full transition-all text-[#4a5568] hover:text-[#1a2744] hover:bg-[#ede9e1]"
+                  style={{ fontFamily: "'Source Sans 3', sans-serif" }}
+                >
+                  <FolderOpen size={14} className="text-[#9aa5b4]" />
+                  Case Studies
+                  <ExternalLink size={11} className="ml-auto text-[#9aa5b4]" />
+                </button>
+              </Link>
+            </div>
+
+            <div className="mt-4 p-4 bg-[#1a2744] rounded-sm">
               <p className="text-white/60 text-xs mb-3" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>CONNECT</p>
               <a
                 href={profile.linkedin}
@@ -294,6 +347,40 @@ export default function Home() {
 
         {/* MAIN CONTENT */}
         <main className="flex-1 min-w-0 flex flex-col gap-16">
+
+          {/* QUICK LINKS BANNER */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link href="/case-studies">
+              <div
+                className="group flex items-center gap-4 p-5 rounded-sm cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                style={{ backgroundColor: "#1a2744", border: "1px solid rgba(200,146,42,0.2)" }}
+              >
+                <div className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(200,146,42,0.15)" }}>
+                  <FolderOpen size={20} style={{ color: "#d4820a" }} />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wider mb-0.5" style={{ color: "#d4820a", fontFamily: "'IBM Plex Mono', monospace" }}>Portfolio</p>
+                  <p className="text-sm font-bold" style={{ color: "#f8f6f1", fontFamily: "'Playfair Display', serif" }}>Customer Case Studies</p>
+                  <p className="text-xs" style={{ color: "rgba(248,246,241,0.5)", fontFamily: "'Source Sans 3', sans-serif" }}>6 enterprise projects →</p>
+                </div>
+              </div>
+            </Link>
+            <Link href="/blog">
+              <div
+                className="group flex items-center gap-4 p-5 rounded-sm cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                style={{ backgroundColor: "#ffffff", border: "1px solid #e8e4dd" }}
+              >
+                <div className="w-10 h-10 rounded-sm flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(26,39,68,0.06)" }}>
+                  <BookOpen size={20} style={{ color: "#1a2744" }} />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wider mb-0.5" style={{ color: "#d4820a", fontFamily: "'IBM Plex Mono', monospace" }}>Thought Leadership</p>
+                  <p className="text-sm font-bold" style={{ color: "#1a2744", fontFamily: "'Playfair Display', serif" }}>Architecture & AI Blog</p>
+                  <p className="text-xs" style={{ color: "#6b7280", fontFamily: "'Source Sans 3', sans-serif" }}>8 articles on MACH, AI & Leadership →</p>
+                </div>
+              </div>
+            </Link>
+          </div>
 
           {/* ABOUT */}
           <Section id="about">
