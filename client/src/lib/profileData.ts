@@ -394,6 +394,81 @@ export const clients = [
   { name: "Wal-Mart", industry: "Retail", platform: "Java/J2EE" },
 ];
 
+export const coreCompetencies = [
+  {
+    area: "Technology Strategy & Governance",
+    description: "Define and execute technology strategy for composable commerce programs across multiple customer engagements, aligning architecture decisions with business outcomes and delivery timelines.",
+    icon: "🎯",
+    timePercent: 15,
+    hoursPerWeek: 6,
+  },
+  {
+    area: "Solution Architecture & Integration",
+    description: "Own end-to-end solution architecture including domain decomposition, service boundaries, integration strategy (ERP, OMS, PIM, CRM, payments, tax, shipping, search, identity), and reference architecture maintenance.",
+    icon: "🏗️",
+    timePercent: 25,
+    hoursPerWeek: 10,
+  },
+  {
+    area: "Engineering Oversight & Mentorship",
+    description: "Lead code/design reviews, enforce standards, govern CI/CD pipelines, and mentor senior engineers, tech leads, and architects on architecture thinking and delivery execution.",
+    icon: "👨‍💻",
+    timePercent: 20,
+    hoursPerWeek: 8,
+  },
+  {
+    area: "Platform Practice Ownership",
+    description: "Own the commercetools, Optimizely, and Shopify practices — developing playbooks, reusable patterns, accelerators, and platform decisions that scale execution across teams.",
+    icon: "🔧",
+    timePercent: 10,
+    hoursPerWeek: 4,
+  },
+  {
+    area: "AI & Agentic Commerce Leadership",
+    description: "Lead agentic commerce capabilities (shopping/service agents), RAG pipelines for product/policy/order knowledge, AEO/GEO strategy for AI-driven discoverability, and AI observability/safety controls.",
+    icon: "🤖",
+    timePercent: 10,
+    hoursPerWeek: 4,
+  },
+  {
+    area: "Quality & Non-Functional Leadership",
+    description: "Define test strategy, SIT/UAT readiness, performance/load testing coordination, go-live readiness, and non-functional governance for scalability, availability, resiliency, and security.",
+    icon: "✅",
+    timePercent: 10,
+    hoursPerWeek: 4,
+  },
+  {
+    area: "Production Oversight & Stability",
+    description: "Guide incident triage, root cause analysis, remediation planning, and stability improvements across live commerce platforms.",
+    icon: "🛡️",
+    timePercent: 10,
+    hoursPerWeek: 4,
+  },
+];
+
+export const aiLeadership = [
+  {
+    title: "Agentic Commerce",
+    description: "Define and lead agentic commerce capabilities — shopping and service agents integrated with commerce platforms using tool-calling workflows and approvals for high-risk actions.",
+    tag: "AI Strategy",
+  },
+  {
+    title: "RAG Pipeline Architecture",
+    description: "Architect and govern Retrieval-Augmented Generation (RAG) pipelines for product, policy, and order knowledge — including embeddings strategy, relevance tuning, evaluation metrics, and access controls.",
+    tag: "Generative AI",
+  },
+  {
+    title: "AEO / GEO Strategy",
+    description: "Drive Answer Engine Optimization and Generative Engine Optimization so product and content experiences are discoverable by AI-powered answer engines — structured data, entity modeling, content governance, and freshness SLAs.",
+    tag: "AEO · GEO",
+  },
+  {
+    title: "Composable Platform Partnerships",
+    description: "Build and manage platform composable partnerships — defining integration standards, joint solution patterns, adoption roadmaps, reference architectures, certification/enablement, and reusable integration kits.",
+    tag: "Ecosystem",
+  },
+];
+
 export const education = [
   {
     degree: "B. Tech – Information Technology",

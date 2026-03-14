@@ -16,6 +16,8 @@ import {
   clients,
   education,
   products,
+  coreCompetencies,
+  aiLeadership,
 } from "@/lib/profileData";
 import {
   MapPin,
@@ -32,6 +34,9 @@ import {
   Lightbulb,
   Menu,
   X,
+  Brain,
+  BarChart3,
+  Target,
 } from "lucide-react";
 
 // Animated counter hook
@@ -98,6 +103,8 @@ function Section({ id, children, className = "" }: { id: string; children: React
 
 const navItems = [
   { id: "about", label: "About", icon: <Users size={14} /> },
+  { id: "competencies", label: "Competencies", icon: <Target size={14} /> },
+  { id: "ai-leadership", label: "AI Leadership", icon: <Brain size={14} /> },
   { id: "experience", label: "Experience", icon: <Briefcase size={14} /> },
   { id: "products", label: "Products", icon: <Lightbulb size={14} /> },
   { id: "skills", label: "Skills", icon: <Code2 size={14} /> },
@@ -325,6 +332,97 @@ export default function Home() {
                   "Omnichannel Commerce",
                 ].map(s => (
                   <span key={s} className="skill-tag">{s}</span>
+                ))}
+              </div>
+            </div>
+          </Section>
+
+          {/* CORE COMPETENCIES */}
+          <Section id="competencies">
+            <h2 className="section-heading mb-3">Core Competencies</h2>
+            <p className="text-[#4a5568] mb-8 text-sm" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+              As Director of Technology, responsibilities span seven key domains across the full project lifecycle — from strategy and architecture through engineering governance, AI innovation, and production stability.
+            </p>
+
+            {/* Work Breakdown Visual */}
+            <div className="bg-[#1a2744] rounded-sm p-6 mb-8">
+              <div className="flex items-center gap-2 mb-5">
+                <BarChart3 size={16} className="text-[#d4820a]" />
+                <span className="text-white/60 text-xs uppercase tracking-widest" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>Weekly Time Allocation (40 hrs)</span>
+              </div>
+              <div className="space-y-3">
+                {coreCompetencies.map((c) => (
+                  <div key={c.area}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-white/80 text-xs" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{c.area}</span>
+                      <span className="text-[#d4820a] text-xs font-semibold" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>{c.hoursPerWeek}h / {c.timePercent}%</span>
+                    </div>
+                    <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-1000"
+                        style={{ width: `${c.timePercent}%`, background: c.timePercent >= 20 ? '#d4820a' : c.timePercent >= 15 ? '#e8a040' : '#6b8cba' }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Competency Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {coreCompetencies.map((c) => (
+                <div key={c.area} className="bg-white border border-[#e8e4dd] p-5 rounded-sm hover:border-[#d4820a] transition-colors">
+                  <div className="flex items-start gap-3">
+                    <div className="text-xl shrink-0 mt-0.5">{c.icon}</div>
+                    <div>
+                      <h4 className="font-bold text-[#1a2744] text-sm mb-1.5" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>{c.area}</h4>
+                      <p className="text-xs text-[#4a5568] leading-relaxed" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{c.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          {/* AI LEADERSHIP */}
+          <Section id="ai-leadership">
+            <h2 className="section-heading mb-3">AI & Innovation Leadership</h2>
+            <p className="text-[#4a5568] mb-8 text-sm" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+              Leading the next frontier of commerce intelligence — from agentic AI and RAG pipelines to AEO/GEO discoverability and composable ecosystem partnerships.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {aiLeadership.map((item) => (
+                <div key={item.title} className="relative bg-white border border-[#e8e4dd] p-6 rounded-sm overflow-hidden hover:shadow-md transition-shadow group">
+                  <div className="absolute top-0 left-0 w-1 h-full" style={{ background: '#d4820a' }} />
+                  <div className="pl-3">
+                    <div className="inline-block px-2 py-0.5 rounded-sm text-xs font-semibold mb-3" style={{ background: 'rgba(212,130,10,0.1)', color: '#d4820a', fontFamily: "'IBM Plex Mono', monospace" }}>
+                      {item.tag}
+                    </div>
+                    <h4 className="font-bold text-[#1a2744] mb-2" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>{item.title}</h4>
+                    <p className="text-xs text-[#4a5568] leading-relaxed" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Architecture Standards Banner */}
+            <div className="bg-white border border-[#e8e4dd] rounded-sm p-6">
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-[#d4820a] mb-4" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>Architecture & Engineering Standards</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                {[
+                  "REST/GraphQL API Design (versioning, pagination, idempotency, error handling)",
+                  "Event-Driven Integration Standards (schemas, retries, dead-letter handling, ordering)",
+                  "CI/CD Governance (build gates, automated tests, artifact versioning, security scans)",
+                  "Deployment Strategies (blue/green, canary releases, feature flags, rollback runbooks)",
+                  "Observability Standards (logging, metrics, tracing, alerting, SLO/SLI targets)",
+                  "Non-Functional Governance (performance, scalability, availability, resiliency, security)",
+                  "commercetools Extensibility (API Extensions, Subscriptions, custom types, serverless)",
+                  "HLD/LLD Architecture Blueprints & Reference Architecture Maintenance",
+                ].map((s) => (
+                  <div key={s} className="flex items-start gap-2 text-sm text-[#4a5568]" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#d4820a] shrink-0" />
+                    {s}
+                  </div>
                 ))}
               </div>
             </div>
