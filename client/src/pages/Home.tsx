@@ -215,7 +215,7 @@ export default function Home() {
             AI-driven Composable Commerce Solutions
           </p>
           <p className="text-base text-white/60 mb-8 max-w-xl" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
-            16+ years architecting enterprise omnichannel platforms · MACH · SAP Commerce · commercetools
+            18+ years architecting enterprise omnichannel platforms · MACH · SAP Commerce · commercetools
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-1.5 text-white/70 text-sm" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
@@ -294,7 +294,7 @@ export default function Home() {
             <h2 className="section-heading mb-6">About</h2>
             <div className="space-y-4 text-[#4a5568] leading-relaxed text-base" style={{ fontFamily: "'Source Sans 3', sans-serif" }}>
               <p>
-                Practice Head, Enterprise Architect, and Technology Leader with over <strong className="text-[#1a2744]">16 years of experience</strong> in Omnichannel Digital Transformation, Solution Architecture, and MACH-based composable commerce projects. Specializes in building high-performance teams from the ground up, KPI-driven delivery, presales, and innovation.
+                Practice Head, Enterprise Architect, and Technology Leader with over <strong className="text-[#1a2744]">18+ years of experience</strong> in Omnichannel Digital Transformation, Solution Architecture, and MACH-based composable commerce projects. Specializes in building high-performance teams from the ground up, KPI-driven delivery, presales, and innovation.
               </p>
               <p>
                 A trusted advisor to senior technologists and C-Level executives, delivering large-scale Omni-channel and marketplace commerce applications with a sharp focus on business and technology strategy. Extensive experience in P&L leadership, delivery leadership, project and program management governance, and developing enterprise omnichannel B2B, B2C, and Marketplace commerce solutions.
