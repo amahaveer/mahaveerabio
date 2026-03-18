@@ -205,6 +205,62 @@ export default function BlogPost() {
               </div>
             </div>
 
+            {/* LinkedIn Share CTA */}
+            <div
+              className="mt-10 p-8 rounded-xl"
+              style={{ background: "linear-gradient(135deg, #0077b5 0%, #005885 100%)", boxShadow: "0 4px 24px rgba(0,119,181,0.25)" }}
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                  <Linkedin size={24} style={{ color: "#ffffff" }} />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.6)", fontFamily: "'IBM Plex Mono', monospace" }}>Share this article</p>
+                  <h4 className="text-lg font-bold mb-3" style={{ fontFamily: "'Playfair Display', serif", color: "#ffffff" }}>Found this insightful? Share it on LinkedIn</h4>
+                  <div
+                    className="p-4 rounded-lg mb-4 text-sm leading-relaxed"
+                    style={{ backgroundColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.85)", fontFamily: "'Source Sans 3', sans-serif", border: "1px solid rgba(255,255,255,0.15)" }}
+                  >
+                    <p className="mb-2">🚀 <strong style={{ color: "#ffffff" }}>NVIDIA NemoClaw just changed the enterprise AI game.</strong></p>
+                    <p className="mb-2">The biggest blocker to autonomous AI agents in production has always been security — not capability. NemoClaw solves the agent security trilemma with out-of-process policy enforcement via OpenShell.</p>
+                    <p className="mb-2">Key takeaways for enterprise tech leaders:</p>
+                    <p className="mb-1">✅ Guardrails that live <em>outside</em> the agent process — not inside it</p>
+                    <p className="mb-1">✅ Model-agnostic: Claude Code, Codex, Cursor all run unmodified</p>
+                    <p className="mb-1">✅ Privacy Router keeps sensitive data on-device with local Nemotron models</p>
+                    <p className="mb-2">✅ Apache 2.0 — open source, single-command install</p>
+                    <p>I've written a full breakdown of what this means for your agentic roadmap 👇</p>
+                    <p className="mt-2" style={{ color: "rgba(255,255,255,0.5)" }}>#NVIDIA #NemoClaw #AgenticAI #EnterpriseAI #AIAgents #ComposableCommerce #TechLeadership</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <a
+                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://mahaveer.manus.space/blog/nvidia-nemoclaw-enterprise-ai-security')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold transition-all hover:opacity-90 hover:scale-105"
+                      style={{ backgroundColor: "#ffffff", color: "#0077b5", fontFamily: "'Source Sans 3', sans-serif" }}
+                    >
+                      <Linkedin size={16} />
+                      Share on LinkedIn
+                    </a>
+                    <button
+                      onClick={() => {
+                        const text = `🚀 NVIDIA NemoClaw just changed the enterprise AI game.\n\nThe biggest blocker to autonomous AI agents in production has always been security — not capability. NemoClaw solves the agent security trilemma with out-of-process policy enforcement via OpenShell.\n\nKey takeaways for enterprise tech leaders:\n✅ Guardrails that live outside the agent process — not inside it\n✅ Model-agnostic: Claude Code, Codex, Cursor all run unmodified\n✅ Privacy Router keeps sensitive data on-device with local Nemotron models\n✅ Apache 2.0 — open source, single-command install\n\nI've written a full breakdown of what this means for your agentic roadmap 👇\n\n#NVIDIA #NemoClaw #AgenticAI #EnterpriseAI #AIAgents #ComposableCommerce #TechLeadership`;
+                        navigator.clipboard.writeText(text).then(() => {
+                          const btn = document.getElementById('copy-linkedin-btn');
+                          if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => { btn.textContent = 'Copy Post Text'; }, 2500); }
+                        });
+                      }}
+                      id="copy-linkedin-btn"
+                      className="flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold transition-all hover:opacity-90"
+                      style={{ backgroundColor: "rgba(255,255,255,0.15)", color: "#ffffff", fontFamily: "'Source Sans 3', sans-serif", border: "1px solid rgba(255,255,255,0.3)" }}
+                    >
+                      Copy Post Text
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Author Card */}
             <div
               className="mt-10 p-8 rounded-xl flex flex-col sm:flex-row gap-6 items-start"
